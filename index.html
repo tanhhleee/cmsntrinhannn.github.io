@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HPBD my bff</title>
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -34,7 +35,6 @@
             max-width: 400px;
             border-radius: 20px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            animation: fadeIn 1.5s ease;
         }
 
         .container {
@@ -49,9 +49,8 @@
         }
 
         h1 { color: #ff69b4; }
-        p { color: #333; line-height: 1.6; }
+        p { color: #333; }
 
-    
         .music-control {
             position: fixed;
             top: 20px;
@@ -65,10 +64,8 @@
             align-items: center;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
         }
 
-        
         .rotating {
             animation: rotate 3s linear infinite;
         }
@@ -77,29 +74,17 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
-        .heart {
-            position: absolute;
-            color: #ff69b4;
-            font-size: 20px;
-            animation: float 3s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0); }
-        }
     </style>
 </head>
+
 <body>
 
     <div class="music-control" id="musicBtn" onclick="toggleMusic()">
         <span id="musicIcon">🎵</span>
     </div>
 
-    <audio id="myAudio" loop>
+
+    <audio id="myAudio" autoplay loop muted>
         <source src="blue.mp3" type="audio/mpeg">
     </audio>
 
@@ -109,10 +94,9 @@
 
     <div class="right">
         <div class="container">
-            <h1>Happy Birthday my best friend 🥰🥰🥰</h1>
-            <p>Hôm nay là ngày sinh nhật của m, t muốn gửi đến m những lời chúc tốt đẹp nhất. Chúc m luôn mạnh khỏe, hạnh phúc và thành công trên con đường mà mình lựa chọn.</p> 
-            <p>Cảm ơn m vì đã là người bạn tốt nhất của t</p>
-            <p>have a happy sixteen!🍀</p>
+            <h1>Happy Birthday my best friend 🥰</h1>
+            <p>Chúc m luôn mạnh khỏe, hạnh phúc và thành công 💖</p>
+            <p>Have a happy sixteen! 🍀</p>
         </div>
     </div>
 
@@ -121,37 +105,16 @@
         const musicBtn = document.getElementById("musicBtn");
         const musicIcon = document.getElementById("musicIcon");
 
-        // Hàm bật/tắt nhạc
+        document.body.addEventListener("click", () => {
+            audio.muted = false;
+            audio.play();
+            musicBtn.classList.add("rotating");
+            musicIcon.innerHTML = "⏸️";
+        }, { once: true });
+
         function toggleMusic() {
             if (audio.paused) {
                 audio.play();
-                musicBtn.classList.add("rotating");
-                musicIcon.innerHTML = "⏸️"; 
+                musicBtn.classList.add("fixed");
+                musicIcon.innerHTML = "⏸️";
             } else {
-                audio.pause();
-                musicBtn.classList.remove("rotating");
-                musicIcon.innerHTML = "🎵"; 
-            }
-        }
-
-        document.body.addEventListener('click', function() {
-            if (audio.paused) {
-                toggleMusic();
-            }
-        }, { once: true });
-
-        // Hiệu ứng tim bay (giữ nguyên)
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = '❤';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 5000);
-        }
-        setInterval(createHeart, 300);
-    </script>
-
-</body>
-</html>
